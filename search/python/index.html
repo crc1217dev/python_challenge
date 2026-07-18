@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Scraper</title>
+    <style>
+      body { max-width: 960px; margin: 3rem auto; padding: 0 1rem; font-family: system-ui, sans-serif; color: #172033; }
+      form { display: flex; gap: .5rem; }
+      input { flex: 1; padding: .7rem; font-size: 1rem; }
+      button { padding: .7rem 1rem; cursor: pointer; }
+      section { margin-top: 2.5rem; }
+      .job { border: 1px solid #d9dee8; border-radius: 8px; padding: 1rem; margin: .75rem 0; }
+      h3, p { margin: .25rem 0; }
+      .meta, .empty, .error { color: #5f6b7a; }
+      .error { color: #b42318; }
+    </style>
+  </head>
+  <body>
+    <h1>Job Scraper</h1>
+    <p>Search roles on Berlin Startup Jobs, We Work Remotely, and Web3 Career.</p>
+    <form id="search-form">
+      <input type="text" name="keyword" value="python" placeholder="python, javascript, java..." required />
+      <button type="submit">Search</button>
+    </form>
+
+    <script>
+      document.getElementById("search-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const keyword = event.currentTarget.keyword.value.trim();
+        if (keyword) window.location.href = `/search/${encodeURIComponent(keyword)}/`;
+      });
+    </script>
+
+    
+
+    
+      <h2>Results for &ldquo;python&rdquo;</h2>
+      
+        <section>
+          <h2>Berlin Startup Jobs</h2>
+          
+            <p class="error">현재 이 사이트의 결과를 가져올 수 없습니다.</p>
+          
+        </section>
+      
+        <section>
+          <h2>We Work Remotely</h2>
+          
+            <p class="error">현재 이 사이트의 결과를 가져올 수 없습니다.</p>
+          
+        </section>
+      
+        <section>
+          <h2>Web3 Career</h2>
+          
+            <p class="error">현재 이 사이트의 결과를 가져올 수 없습니다.</p>
+          
+        </section>
+      
+    
+  </body>
+</html>
