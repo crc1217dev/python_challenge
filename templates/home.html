@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Scraper</title>
+    <style>
+      body { max-width: 960px; margin: 3rem auto; padding: 0 1rem; font-family: system-ui, sans-serif; color: #172033; }
+      form { display: flex; gap: .5rem; }
+      input { flex: 1; padding: .7rem; font-size: 1rem; }
+      button { padding: .7rem 1rem; cursor: pointer; }
+      section { margin-top: 2.5rem; }
+      .job { border: 1px solid #d9dee8; border-radius: 8px; padding: 1rem; margin: .75rem 0; }
+      h3, p { margin: .25rem 0; }
+      .meta, .empty, .error { color: #5f6b7a; }
+      .error { color: #b42318; }
+    </style>
+  </head>
+  <body>
+    <h1>Job Scraper</h1>
+    <p>Search roles on Berlin Startup Jobs, We Work Remotely, and Web3 Career.</p>
+    <form action="{{ url_for('search') }}" method="get">
+      <input type="text" name="keyword" value="{{ keyword or '' }}" placeholder="python, javascript, java..." required />
+      <button type="submit">Search</button>
+    </form>
+
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+    {% if jobs_by_source %}
+      <h2>Results for “{{ keyword }}”</h2>
+      {% for source, jobs in jobs_by_source.items() %}
+        <section>
+          <h2>{{ source }}</h2>
+          {% if errors.get(source) %}
+            <p class="error">{{ errors[source] }}</p>
+          {% elif jobs %}
+            {% for job in jobs %}
+              <article class="job">
+                <h3><a href="{{ job.link }}" target="_blank" rel="noopener noreferrer">{{ job.title }}</a></h3>
+                <p><strong>{{ job.company }}</strong></p>
+                {% if job.description %}<p>{{ job.description }}</p>{% endif %}
+                {% if job.date %}<p class="meta">Posted {{ job.date }}</p>{% endif %}
+              </article>
+            {% endfor %}
+          {% else %}
+            <p class="empty">No matching jobs found.</p>
+          {% endif %}
+        </section>
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>
